@@ -40,6 +40,32 @@ compiler.plugin('compilation', function (compilation) {
     cb()
   })
 })
+//require data
+var appdata = require('../data.json');
+var seller = appdata.seller;
+var goods =appdata.goods;
+var ratings = appdata.ratings
+// vue router
+var apiRouter = express.Router();
+app.get('/seller',function(req,res){
+  res.json({
+    error:0,
+    data:seller
+  })
+});
+app.get('/goods',function(req,res){
+  res.json({
+    error:0,
+    data:goods
+  })
+});
+app.get('/ratings',function(req,res){
+  res.json({
+    error:0,
+    data:ratings
+  })
+})
+
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
@@ -63,7 +89,7 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-
+app.use('/admin', apiRouter);
 var uri = 'http://localhost:' + port
 
 var _resolve

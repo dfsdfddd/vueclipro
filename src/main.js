@@ -13,3 +13,12 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+/*
+ fsffs
+ 1,引用vue
+ 挂载vue
+ 挂载vuerouter
+ 挂载template
+ 挂载component
+ */
