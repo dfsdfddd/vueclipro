@@ -47,26 +47,25 @@ var goods =appdata.goods;
 var ratings = appdata.ratings
 // vue router
 var apiRouter = express.Router();
-app.get('/seller',function(req,res){
+apiRouter.get('/seller',function(req,res){
   res.json({
     error:0,
     data:seller
   })
 });
-app.get('/goods',function(req,res){
+apiRouter.get('/goods',function(req,res){
   res.json({
     error:0,
     data:goods
   })
 });
-app.get('/ratings',function(req,res){
+apiRouter.get('/ratings',function(req,res){
   res.json({
     error:0,
     data:ratings
   })
 })
-
-
+app.use('/api', apiRouter);
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
