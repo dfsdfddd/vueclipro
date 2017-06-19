@@ -92,6 +92,7 @@ export default {
         height: 120px
       div
         float: left
+        display: block
 
 
 </style>
