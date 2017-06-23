@@ -7,7 +7,7 @@
         </li>
       </ul>
     </div>
-    <div class="goodsRight" ref="foodsWrapper">
+    <div class="goodsRight" id="wrapper" ref="foodsWrapper">
        <ul>
           <li v-for="(item,index) in goods" class="food-list-hook">
             <h3>{{item.name}}</h3>
@@ -101,13 +101,14 @@ export default {
       this.menuScroll = new BSscroll(this.$refs.menuWrapper,{
         click: true
       });
-      this.foodsScroll = new BSscroll(this.$refs.foodsWrapper,{
-        click: true,
-        protoType: 3
-      })
-      this.foodsScroll.on('scroll', (pos) => {
-        this.scrollY = Math.abs(Math.round(pos.y));
-        console.log(this.scrollY)
+
+      this.scrolll = new BSscroll(this.$refs.foodsWrapper,{
+        probeType: 3
+      });
+
+      this.scrolll.on('scroll', (pos) => {
+        console.log(pos.x + '~' + pos.y)
+
       });
     },
     _calculateHeight:function(){
@@ -146,6 +147,8 @@ export default {
         padding: 0 12px
         line-height: 14px
         display: table
+        &.current
+          background red
         span
           display: table-cell;
           width: 56px;
