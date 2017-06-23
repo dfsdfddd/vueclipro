@@ -1,36 +1,49 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <v-head></v-head>
-    <div class="bottoms">
-      <ul class="choice">
-        <li>
-          <router-link to="/goods">goods</router-link>
-        </li>
-        <li>
-          <router-link to="/ratings">ratings</router-link>
-        </li>
-        <li>
-          <router-link to="/seller">seller</router-link>
-        </li>
-      </ul>
-      <div>
-        <router-view></router-view>
+    <v-head :seller = "seller"></v-head>
+      <div class="bottoms">
+        <ul class="choice">
+          <li>
+            <router-link to="/goods">goods</router-link>
+          </li>
+          <li>
+            <router-link to="/ratings">ratings</router-link>
+          </li>
+          <li>
+            <router-link to="/seller">seller</router-link>
+          </li>
+        </ul>
       </div>
-    </div>
+      <router-view :seller = "seller"></router-view>
   </div>
 
 </template>
 
 <script>
+  /* eslint-disable */
 import head from './header/header.vue'
 export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      seller:{}
     }
   },
+  mounted(){
+    this.$nextTick(function(){
+        this.creatSellerP()
+    })
+  },
+  methods: {
+    creatSellerP(){
+        this.$http.get('/api/seller').then((response)=>{
+            response = response.body;
+            this.seller = response.data
+        })
+    }
+  },
+
   components: {
     'v-head': head
   }
@@ -42,12 +55,10 @@ export default {
 .router-link-active
   color: red;
 .bottoms
-  border: 1px solid #023985
+  border-top: 1px solid #023985
   ul.choice
     display: flex
     text-align center
-    margin-bottom: 20px
-    border-bottom: 1px solid #7e8c8d
     -webkit-box-shadow: 0 0 5px gray
     -moz-box-shadow: 0 0 5px gray
     box-shadow: 0 0 5px gray

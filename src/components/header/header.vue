@@ -1,10 +1,21 @@
 <template>
   <div class="head">
     <p>this is header</p>
+    <p>{{ seller.name }}</p>
   </div>
 </template>
 <script type="text/ecmascript-6">
-export default{}
+  /*eslint-disable*/
+export default{
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data() {
+    return {}
+  }
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 .head
@@ -17,7 +28,6 @@ export default{}
   -webkit-box-shadow: 0 3px 5px #888
   -moz-box-shadow: 0 3px 5px #888
   box-shadow: 0 3px 5px #888
-  margin-bottom: 30px
   p
     display: table-cell
 
