@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 * 挂载内容为component以及下面的组件并且引用
 * 同时引用路由并且挂载路由
 * */
-new Vue({
+  new Vue({
   el: '#app',
   router,
   template: '<Apps/>',

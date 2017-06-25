@@ -1,39 +1,51 @@
 <template>
   <div class="hello">
     <v-head :seller = "seller"></v-head>
-      <div class="bottoms">
-        <ul class="choice">
-          <li>
-            <router-link to="/goods">goods</router-link>
-          </li>
-          <li>
-            <router-link to="/ratings">ratings</router-link>
-          </li>
-          <li>
-            <router-link to="/seller">seller</router-link>
-          </li>
-        </ul>
-      </div>
-      <router-view :seller = "seller"></router-view>
+    <div class="bottoms">
+      <ul class="choice">
+        <li>
+          <router-link to="/goods">goods</router-link>
+        </li>
+        <li>
+          <router-link to="/ratings">ratings</router-link>
+        </li>
+        <li>
+          <router-link to="/seller">seller</router-link>
+        </li>
+      </ul>
+    </div>
+    <router-view :seller = "seller" keep-alive></router-view>
+    <v-food :food="selectedFood" ref="food"></v-food>
   </div>
 
 </template>
 
 <script>
   /* eslint-disable */
-import head from './header/header.vue'
+import { Event } from '../common/js/commonVue';
+import head from './header/header.vue';
+import food from './food/food.vue';
+
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      seller:{}
+      seller:{},
+      selectedFood:{}
     }
   },
   mounted(){
     this.$nextTick(function(){
         this.creatSellerP()
-    })
+    });
+
+    Event.$on('food-msg',function(msg){
+        console.log('init')
+      this.selectedFood = msg;
+      this.$refs.food.show();
+
+    }.bind(this));
   },
   methods: {
     creatSellerP(){
@@ -41,12 +53,17 @@ export default {
             response = response.body;
             this.seller = response.data
         })
+    },
+    flagshow(){
+      this.$refs.food.show()
     }
   },
 
   components: {
-    'v-head': head
-  }
+    'v-head': head,
+    'v-food': food
+  },
+
 }
 </script>
 
