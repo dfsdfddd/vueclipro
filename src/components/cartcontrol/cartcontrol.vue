@@ -1,6 +1,6 @@
 <template>
   <div class="cartControl">
-    <span @click.stop.prevent="decCart($event)" >-</span>
+    <span @click.stop.prevent="decCart($event)" v-show="food.count>0">-</span>
     <span v-show="food.count>0">{{food.count}}</span>
     <span @click.stop.prevent="addCart($event)">+</span>
   </div>
@@ -30,13 +30,11 @@ export default{
       if (!this.food.count){
         Vue.set(this.food, 'count', 1)
       }else {this.food.count++}
-      this.$dispatch('test', 1);
+
 
     },
     decCart: function(event){
-      if (!event._constructed){
-        return
-      }
+
       if (this.food.count){
         this.food.count--;
       }

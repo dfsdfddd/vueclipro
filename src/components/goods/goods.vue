@@ -32,7 +32,7 @@
           </li>
         </ul>
     </div>
-    <shopcart :select-food="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>-->
+    <shopcart :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
 
   </div>
 
@@ -51,7 +51,8 @@
  */
 import { Event } from '../../common/js/commonVue';
 import BSscroll from 'better-scroll';
-import cartcontrol from '../cartcontrol/cartcontrol.vue'
+import cartcontrol from '../cartcontrol/cartcontrol.vue';
+import shopcart from '../shopcart/shopcart.vue'
 
 export default {
   /**
@@ -64,7 +65,7 @@ export default {
   },
   data() {
     return {
-      goods: {},
+      goods: [],
       listHeight:[],
       scrollY:0,
       selectedFood:{}
@@ -102,10 +103,12 @@ export default {
           }
         })
       })
+      return foods
     }
   },
   components: {
-    cartcontrol
+    cartcontrol,
+    shopcart
   },
   methods: {
     /**
