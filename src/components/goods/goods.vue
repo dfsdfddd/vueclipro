@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="goodsLeft" ref="menuWrapper">
       <ul>
-        <li v-for="(item,index) in goods" :class="{'current': currentIndex === index}" @click="selectMenu(index,$event)">
+        <li v-for="(item,index) in goods" :class="{'current': currentIndex === index}" @click="selectMenu($index,$event)">
             <span>{{item.name}}</span>
         </li>
       </ul>
@@ -24,15 +24,15 @@
                   </div>
                   <p v-text="food.price"></p>
                 </div>
-                <!--<div>
-                  <cartcontrol></cartcontrol>
-                </div>-->
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food='food'></cartcontrol>
+                </div>
               </li>
             </ul>
           </li>
         </ul>
     </div>
-   <!-- <shopcart></shopcart>-->
+    <shopcart :select-food="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>-->
 
   </div>
 
@@ -51,6 +51,7 @@
  */
 import { Event } from '../../common/js/commonVue';
 import BSscroll from 'better-scroll';
+import cartcontrol from '../cartcontrol/cartcontrol.vue'
 
 export default {
   /**
@@ -91,10 +92,20 @@ export default {
         }
       }
       return 0;
+    },
+    selectFoods(){
+      let foods=[];
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count){
+            foods.push(food)
+          }
+        })
+      })
     }
   },
   components: {
-
+    cartcontrol
   },
   methods: {
     /**
@@ -176,6 +187,9 @@ export default {
 
 
     },
+    'test': function(s){
+      console.log(s + 1)
+    }
 
 
 
@@ -215,6 +229,7 @@ export default {
     h3
       background-color: gainsboro;
     li
+      position: relative
       clear: both
       overflow: hidden
       .imags img
@@ -223,6 +238,10 @@ export default {
         height: 90px
       div
         float: left
+      div.cartcontrol-wrapper
+        position: absolute
+        right: 0
+        bottom:12px
 
 
 </style>
